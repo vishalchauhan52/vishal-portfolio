@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal Chauhan - 3D Portfolio</title>
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #64ffda;
+            --dark-bg: #0a192f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: #8892b0;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary-color);
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .card-3d {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: translateZ(20px) rotateX(5deg);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+
+        .experience-item {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+
+    <div class="content-wrapper">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">VISHAL CHAUHAN</h1>
+                <h2 class="hero-subtitle">Junior Software Developer</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 9569287775</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>vishalchauhan525@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ghazipur, India</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Summary -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Profile Summary</h2>
+                <div class="card-3d">
+                    <p>Dynamic and detail-oriented Software Developer with 1.5 years of experience in designing and developing user-focused applications. Proficient in C#, ASP.NET Core, ASP.NET MVC, Entity Framework, and SQL Server, with a strong background in creating efficient APIs and writing optimized LINQ queries.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skill-grid">
+                    <div class="skill-category">
+                        <h3>Languages & Frameworks</h3>
+                        <p>C#, ASP.NET Core, ASP.NET MVC, Entity Framework Core, ADO.NET, LINQ</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <p>Angular, HTML5, CSS3, Bootstrap, JavaScript, jQuery</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Database & Tools</h3>
+                        <p>SQL Server, Web API, RESTful APIs, Git, GitHub</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Other Skills</h3>
+                        <p>Responsive Web Design, UI Testing, Web Hosting, SEO</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Work Experience</h2>
+                
+                <div class="experience-item">
+                    <h3>Junior Software Developer</h3>
+                    <p class="text-muted">Antvert Software Solution Service LLP | Apr 2023 - May 2024</p>
+                    <ul>
+                        <li>Developed and maintained scalable web applications using ASP.NET Core, SQL Server, and Entity Framework.</li>
+                        <li>Created RESTful APIs and optimized LINQ queries for efficient data handling.</li>
+                        <li>Collaborated with the team to design, develop, and deploy secure and high-performance applications.</li>
+                        <li>Integrated frontend Angular components with backend APIs to enhance user experience.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <h3>Junior Software Developer</h3>
+                    <p class="text-muted">Ariespro Technology | Jun 2024 - Jan 2025</p>
+                    <ul>
+                        <li>Spearheaded the development of robust web applications using ASP.NET Core and MVC frameworks.</li>
+                        <li>Designed and implemented secure backend systems and optimized database interactions.</li>
+                        <li>Played a key role in delivering customized solutions that aligned with business objectives.</li>
+                        <li>Ensured seamless integration and functionality across different application modules.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h3>Duncan DMS (6 Months)</h3>
+                            <p>Developed a web application for calculating electricity usage in units.</p>
+                            <ul>
+                                <li>Used ASP.NET Core for secure and efficient data processing.</li>
+                                <li>Implemented Entity Framework for seamless database management.</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-badge">ASP.NET Core</span>
+                                <span class="tech-badge">Entity Framework</span>
+                                <span class="tech-badge">SQL Server</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="project-card">
+                            <h3>Matrimonial Platform (12 Months)</h3>
+                            <p>Designed and developed a matchmaking platform for genuine matrimonial alliances.</p>
+                            <ul>
+                                <li>Created and maintained core functionalities for user registration and profile management.</li>
+                                <li>Optimized SQL queries for improved search performance.</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-badge">ASP.NET Core</span>
+                                <span class="tech-badge">Angular</span>
+                                <span class="tech-badge">SQL Server</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="card-3d">
+                    <ul>
+                        <li>B.A. (Veer Bahadur Singh Purvanchal University, 2022)</li>
+                        <li>12th Grade (Uttar Pradesh Board, 2019)</li>
+                        <li>10th Grade (Uttar Pradesh Board, 2017)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Three.js Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Create particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 5;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.005,
+            color: 0x4a90e2,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 2;
+
+        // Mouse movement effect
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5;
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.001;
+
+            particlesMesh.rotation.x += mouseY * 0.1;
+            particlesMesh.rotation.y += mouseX * 0.1;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
