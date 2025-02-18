@@ -75,11 +75,23 @@
             align-items: center;
             gap: 10px;
             color: var(--secondary-color);
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .section {
             padding: 100px 0;
             position: relative;
+            z-index: 2;
         }
 
         .section-title {
@@ -87,6 +99,18 @@
             color: var(--secondary-color);
             margin-bottom: 50px;
             text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
         }
 
         .card-3d {
@@ -96,11 +120,12 @@
             padding: 30px;
             margin-bottom: 30px;
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: all 0.3s ease;
         }
 
         .card-3d:hover {
             transform: translateZ(20px) rotateX(5deg);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .skill-grid {
@@ -114,11 +139,12 @@
             background: var(--card-bg);
             padding: 20px;
             border-radius: 15px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .skill-category:hover {
             transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .experience-item {
@@ -126,11 +152,12 @@
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 30px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .experience-item:hover {
             transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .project-card {
@@ -161,9 +188,28 @@
             font-size: 0.9rem;
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            font-size: 24px;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
         }
 
         #scene-container {
@@ -186,6 +232,10 @@
             .section {
                 padding: 60px 0;
             }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -200,18 +250,27 @@
                 <h2 class="hero-subtitle">Junior Software Developer</h2>
                 
                 <div class="contact-info">
-                    <div class="contact-item">
+                    <a href="tel:+919569287775" class="contact-item">
                         <i class="fas fa-phone"></i>
                         <span>+91 9569287775</span>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <a href="mailto:vishalchauhanvishalchauhan525@gmail.com" class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <span>vishalchauhanvishalchauhan525@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <a href="https://www.google.com/maps/place/Ghazipur,+Uttar+Pradesh" target="_blank" class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>Ghazipur, India</span>
-                    </div>
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vishal-chauhan" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/yourusername" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
                 </div>
             </div>
         </section>
@@ -336,68 +395,5 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Three.js Scene Setup
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('scene-container').appendChild(renderer.domElement);
-
-        // Create particles
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 5000;
-        const posArray = new Float32Array(particlesCount * 3);
-
-        for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 5;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.005,
-            color: 0x4a90e2,
-            transparent: true,
-            opacity: 0.8
-        });
-
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
-
-        camera.position.z = 2;
-
-        // Mouse movement effect
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = event.clientX / window.innerWidth - 0.5;
-            mouseY = event.clientY / window.innerHeight - 0.5;
-        });
-
-        // Animation
-        function animate() {
-            requestAnimationFrame(animate);
-
-            particlesMesh.rotation.y += 0.001;
-            particlesMesh.rotation.x += 0.001;
-
-            particlesMesh.rotation.x += mouseY * 0.1;
-            particlesMesh.rotation.y += mouseX * 0.1;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Responsive resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
 </body>
 </html>
